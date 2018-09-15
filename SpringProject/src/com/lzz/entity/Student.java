@@ -32,7 +32,7 @@ public class Student {
 		return this.stuNum + "," + this.stuName;
 	}
 	/**
-	 * 学生学习课程
+	 * 学生学习课程 
 	 */
 	public void learn(String name) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
