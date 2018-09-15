@@ -33,6 +33,7 @@ public class Student {
 	}
 	/**
 	 * 学生学习课程 
+	 * 通过IOC仓库决定学习的课程
 	 */
 	public void learn(String name) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
