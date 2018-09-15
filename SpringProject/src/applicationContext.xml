@@ -16,4 +16,8 @@
 		<property name="stuAge" value="24"></property>
 	</bean>
 
+	<bean id="javaCourse" class="com.lzz.course.JavaCourse"></bean>
+	
+	<bean id="htmlCourse" class="com.lzz.course.HtmlCourse"></bean>
+
 </beans>

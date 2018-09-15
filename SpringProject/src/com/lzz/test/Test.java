@@ -17,7 +17,7 @@ public class Test {
 		//Spring上下文对象
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Student student = (Student) context.getBean("student");
-		System.out.println(student);
+		student.learn("htmlCourse");
 		//1、省略了new
 		//2、省略了对象属性的赋值
 	}
