@@ -6,7 +6,14 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+		default-autowire="byName"
+		>
+		<!-- 全部属性统一设置成自动装配 -->
+
+	<!-- 配置扫描器 -->
+	<context:component-scan base-package="com.lzz.dao">
+	</context:component-scan>
 
 	<!-- 创建对象放入spring IOC容器中 -->
 	<bean id="student" class="com.lzz.entity.Student">
@@ -19,5 +26,110 @@
 	<bean id="javaCourse" class="com.lzz.course.JavaCourse"></bean>
 	
 	<bean id="htmlCourse" class="com.lzz.course.HtmlCourse"></bean>
+
+	<bean id="teacher" class="com.lzz.entity.Teacher" p:teacherAge="25" p:teacherName="ww">
+		<!-- 
+		<property name="teacherName" value="zs"></property>
+		<property name="teacherAge" value="25"></property>
+		 -->
+		<!-- 
+		<constructor-arg value="28" index="1"></constructor-arg>
+		<constructor-arg value="ls" index="0"></constructor-arg> 
+		-->
+	</bean>
+	
+	<!-- 依赖关系，由ref来只想对应的bean构成依赖关系 -->
+	
+	<!-- 自动装配 
+		autowire=
+		"byName"  
+		Course类中有一个ref属性teacher（属性名），并且该IOC容器中恰好有一个bean的id也是teacher
+		bean的id值 = 类的属性名
+		
+		"byType":其他bean的类型"class"是否与Course类的ref属性类型一致（必须满足当前IoC容器中只有一个Bean满足条件）
+		
+		"constructor"其他bean的类型（class）是否与该Course类的构造方法参数的类型一致
+	-->
+	<bean id="course" class="com.lzz.entity.Course" autowire="byName">
+		<!-- 依赖注入第一种方法：set方法赋值 --> 
+		<property name="courseName" value="java"></property>
+		<property name="courseHour" value="64"></property>
+		<!-- 
+		<property name="teacher" ref="teacher"></property>
+		 -->
+		 <!-- 依赖注入第二种方法：构造方法赋值 -->
+		 <!-- 如果与构造方法参数顺序不同，可以通过index、name、
+		 		type等属性进行区分 -->
+		 <!-- 
+		 <constructor-arg value="Python"></constructor-arg>
+		 <constructor-arg value="64"></constructor-arg>
+		 <constructor-arg ref="teacher"></constructor-arg> 
+		 -->
+		 <!-- 依赖注入第三种方法：p命名空间 -->
+		 <!-- 
+		 <bean id="course" class="com.lzz.entity.Course" 
+			p:courseName="Html" p:courseHour="32" p:teacher-ref="teacher">
+		  -->
+		 
+	</bean>
+
+	<!-- 各种集合类型的属性注入 -->
+	<bean id="collectionDemo" class="com.lzz.entity.AllCollectionType">
+		<property name="listElement" >
+			<list>
+				<value>足球l</value>
+				<value>篮球l</value>
+				<value>乒乓球l</value>
+			</list>
+		</property>
+		
+		<property name="setElement">
+			<set>
+				<value>足球s</value>
+				<value>篮球s</value>
+				<value>乒乓球s</value>
+			</set>
+		</property>
+		
+		<property name="arrayElement">
+			<array>
+				<value>足球a</value>
+				<value>篮球a</value>
+				<value>乒乓球a</value>
+			</array>
+		</property>
+		
+		<property name="mapElement">
+			<map>
+				<entry>
+					<key>
+						<value>foot</value>
+					</key>
+					<value>足球m</value>
+				</entry>
+				<entry>
+					<key>
+						<value>basket</value>
+					</key>
+					<value>篮球m</value>
+				</entry>
+				<entry>
+					<key>
+						<value>pingpong</value>
+					</key>
+					<value>乒乓m</value>
+				</entry>
+			</map>
+		</property>
+		
+		<property name="propsElement">
+			<props>
+				<prop key="foot">足球p</prop>
+				<prop key="basket">篮球p</prop>
+				<prop key="pingpong">乒乓p</prop>
+			</props>
+		</property>
+		
+	</bean>
 
 </beans>
